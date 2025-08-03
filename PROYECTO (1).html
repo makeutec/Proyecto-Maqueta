@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSTRUMENTO NARRATIVO AUTOBIOGRÁFICO DE MIGRANTES HAITIANOS</title>
+    <style>
+        :root {
+            --primary: #97C2D1;
+            --secondary: #ABD9CF;
+            --accent: #B2DCFA;
+            --light: #F5F9FA;
+            --dark: #3A4A4F;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 5px solid var(--secondary);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+            line-height: 1.3;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            background-color: var(--primary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .tab {
+            padding: 1rem 2rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover, .tab.active {
+            background-color: var(--secondary);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 2rem;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .highlight-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card h3 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--accent);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--secondary);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::after {
+            right: -12px;
+        }
+        
+        .right::after {
+            left: -12px;
+        }
+        
+        .timeline-content {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        tr:hover {
+            background-color: rgba(178, 220, 250, 0.1);
+        }
+        
+        /* Estilos para la sección Relato */
+        .relato-container {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .relato-title {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .relato-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        .relato-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        
+        .relato-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .relato-highlight {
+            font-style: italic;
+            font-weight: 600;
+            color: var(--accent);
+            background-color: rgba(255,255,255,0.15);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 0.3rem 0;
+            border-left: 3px solid var(--accent);
+        }
+        
+        /* Estilos para el video */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        
+        .streamable-logo {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 100px;
+            opacity: 0.7;
+            z-index: 10;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .relato-title {
+                font-size: 1.5rem;
+            }
+            
+            .nav-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+                line-height: 1.4;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+            }
+            
+            .left::after, .right::after {
+                left: 21px;
+            }
+            
+            .right {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>INSTRUMENTO NARRATIVO AUTOBIOGRÁFICO DE MIGRANTES HAITIANOS: UNA EXPERIENCIA EMOCIONAL A TRAVÉS DEL LENGUAJE EN EXPRESIONES ARTÍSTICAS/PLÁSTICAS</h1>
+        </div>
+    </header>
+
+    <div class="nav-tabs">
+        <div class="tab active" onclick="openTab('resumen')">Resumen</div>
+        <div class="tab" onclick="openTab('relato')">Relato</div>
+        <div class="tab" onclick="openTab('metodologia')">Metodología</div>
+        <div class="tab" onclick="openTab('objetivos')">Objetivos</div>
+        <div class="tab" onclick="openTab('publico')">Público</div>
+        <div class="tab" onclick="openTab('equipo')">Equipo</div>
+        <div class="tab" onclick="openTab('plan')">Plan</div>
+    </div>
+    
+    <div class="container">
+        <!-- RESÚMEN ACTUALIZADO -->
+        <div id="resumen" class="tab-content active">
+            <div class="highlight-card">
+                <h2>Resumen Ejecutivo</h2>
+                <p>Este proyecto propone como objetivo general la creación de una pieza editorial y un dispositivo audiovisual que representen las experiencias autobiográficas de personas haitianas residentes en Chile, mediante un enfoque transdisciplinar que integra la lingüística, las artes plásticas y la neurociencia. Su objetivo central es visibilizar y analizar las vivencias migrantes desde una perspectiva integral que considere sus dimensiones emocionales, simbólicas y cognitivas, dando lugar a un Instrumento Narrativo Autobiográfico como resultado concreto del proceso.</p>
+                
+                <p>La metodología contempla tres etapas complementarias. La primera consiste en un ciclo de seis talleres arteterapéuticos presenciales, donde las personas participantes crearán obras plásticas a partir del relato de su experiencia migratoria. Estas sesiones no solo promoverán la expresión artística, sino que también funcionarán como espacios de contención emocional, permitiendo resignificar sus vivencias a través de metáforas. La segunda etapa corresponde al análisis de las metáforas cognitivas utilizadas en los relatos, aplicando el Modelo para la Descripción y Análisis de la Metáfora de Rivano (1999), el cual permite identificar estructuras conceptuales que reflejan los procesos de adaptación, pérdida y reconstrucción identitaria en contextos migratorios. Finalmente, la tercera etapa incluye la aplicación de dos instrumentos psicométricos: el TMMS-24 (Fernández-Berrocal et al., 2004), centrado en la conciencia emocional, y el DASS-21 (Lovibond & Lovibond, 1995), que evalúa síntomas de depresión, ansiedad y estrés. Esto permitirá estimar el impacto emocional y el bienestar psicológico de las personas participantes.</p>
+                
+                <p>La propuesta se fundamenta en la necesidad de fomentar la apropiación social del conocimiento en comunidades históricamente excluidas, como la población haitiana en Chile, la cual enfrenta importantes barreras lingüísticas, culturales y socioeconómicas. En este sentido, el proyecto busca establecer un puente entre las experiencias migrantes, comunitarias y el ámbito académico, promoviendo la valorización de sus voces y saberes.</p>
+                
+                <p>Los objetivos específicos son: (i) expresar la experiencia migrante mediante talleres arteterapéuticos; (ii) analizar las metáforas cognitivas presentes en los relatos utilizando el modelo de Rivano; y (iii) evaluar el bienestar emocional de las y los participantes mediante los instrumentos TMMS-24 y DASS-21.</p>
+                
+                <p>La estrategia de difusión contempla cinco ejes: distribución digital a través de redes sociales y plataformas institucionales; alianzas con organizaciones migrantes; publicación científica indexada; elaboración de un tríptico informativo sobre salud mental y migración; y una actividad comunitaria final de cierre y difusión de las obras plásticas y de los instrumentos de difusión generados en este proyecto. Así, el proyecto busca integrar arte, ciencia y testimonio para dignificar la experiencia migrante y fomentar una ciudadanía más inclusiva.</p>
+            </div>
+            
+            <h2>Componentes Clave</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Talleres Arteterapéuticos</h3>
+                    <p>6 sesiones para crear obras artísticas que resignifiquen visualmente la experiencia migrante (pasado, llegada y situación actual).</p>
+                </div>
+                <div class="card">
+                    <h3>Análisis de Metáforas</h3>
+                    <p>Según modelo de Rivano (1999) para identificar estructuras conceptuales en los relatos migratorios.</p>
+                </div>
+                <div class="card">
+                    <h3>Evaluación Emocional</h3>
+                    <p>Aplicación de TMMS-24 (meta-mood) y DASS-21 (depresión, ansiedad, estrés) pre y post intervención.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- RELATO CON REPRODUCTOR DE STREAMABLE AL FINAL -->
+        <div id="relato" class="tab-content">
+            <div class="relato-container">
+                <h2 class="relato-title">Relato del Proyecto</h2>
+                
+                <div class="relato-text">
+                    <p>Entre las fronteras y memorias, donde las palabras a veces no alcanzan, surge un puente a través de materiales artísticos que darán pie a emociones y a procesos de expresión individual y colectiva.</p>
+                    
+                    <p>En las calles de Santiago, Estación Central o Independencia, donde la comunidad haitiana se mezcla con la cultura chilena se producen procesos de adaptación socioculturales donde las palabras se expresan a través del collage, guardando simbolismos y recuerdos visibles. Los autorretratos revelan las huellas invisibles a la mirada y se conectan demostrando emociones expresadas mediante el arte plástico.</p>
+                    
+                    <p>Este proyecto entrelaza arte plástico, metáforas y ciencia capturando lo que un formulario no pregunta: <span class="relato-highlight">¿Cómo se siente una persona migrante que dejó su tierra?</span></p>
+                    
+                    <p><strong>El proceso:</strong> Talleres y acompañamiento que permiten expresar un sentir. En seis sesiones, las manos de los participantes transforman emociones en obras tangibles. Los facilitadores expertos en arte terapia, guían sin imponer, porque aquí no hay respuestas incorrectas, solo verdades plasmadas en pinturas, recortes de revistas y materiales artísticos. Dando así, como resultado verdaderas obras emocionales artísticas.</p>
+                    
+                    <p><strong>La ciencia detrás del arte.</strong> Mientras tanto, lingüistas analizan las metáforas ocultas en los relatos por ejemplo: <span class="relato-highlight">"Chile es un barco que no me deja subir"</span> o <span class="relato-highlight">"Mi identidad es un rompecabezas con piezas de dos países"</span>. Estas expresiones, catalogadas bajo el modelo de Rivano, revelan patrones cognitivos comunes en la diáspora haitiana.</p>
+                    
+                    <p>Paralelamente, se aplican escalas como el TMMS-24 para medir cómo cambia la regulación emocional después de crear arte. Los resultados preliminares muestran algo revelador: <span class="relato-highlight">la ansiedad disminuye cuando el dolor se convierte en símbolo</span>.</p>
+                    
+                    <p><strong>Las huellas:</strong> El proyecto culmina con una exposición itinerante y un libro bilingüe que combina fotografías de las obras con análisis académicos. Pero el verdadero éxito está en las cápsulas audiovisuales donde los participantes, frente a la cámara, narran sus procesos creativos mediados a través del arte plástico.</p>
+                    
+                    <p><strong>¿Por qué importa?</strong> En un Chile que aún debate la inclusión, este instrumento demuestra que la migración no es solo un trámite legal, sino un viaje emocional que merece ser contado y escuchado en múltiples lenguajes. Las obras se presentarán en centros culturales y universitarios sumado a municipalidades. Respondiendo a la pregunta inicial, la respuesta es clara: <span class="relato-highlight">detrás de cada número de visa hay un relato que el arte ayuda a transmitir y visibilizar</span>.</p>
+                    
+                    <p><strong>Epílogo:</strong> El equipo —neurocientífico, artista y lingüista— ya planea replicar el modelo con otras comunidades. Porque, como dice la Dra. Garrido: <span class="relato-highlight">"Cuando una sociedad aprende a leer las metáforas del otro, deja de ver migrantes y empieza a ver personas"</span>.</p>
+
+                    <!-- VIDEO MOVIDO AL FINAL DE LA SECCIÓN RELATO -->
+                    <div class="video-container">
+                        <iframe src="https://streamable.com/e/8qei74" 
+                                frameborder="0" 
+                                allow="autoplay; fullscreen" 
+                                allowfullscreen>
+                        </iframe>
+                        <img src="https://streamable.com/static/images/logo.png" alt="Streamable" class="streamable-logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- METODOLOGÍA -->
+        <div id="metodologia" class="tab-content">
+            <h2>Metodología del Proyecto</h2>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Talleres Artísticos</h3>
+                    <p><strong>6 sesiones presenciales</strong> con estructura definida:</p>
+                    <ol>
+                        <li>Vinculación y encuadre terapéutico</li>
+                        <li>Collage y palabra emocional</li>
+                        <li>Autorretrato e identidad</li>
+                        <li>Obra colectiva migratoria</li>
+                    </ol>
+                    <button class="btn" onclick="openModal('modal-talleres')">Ver detalles sesiones</button>
+                </div>
+                <div class="card">
+                    <h3>Análisis Lingüístico</h3>
+                    <p><strong>Modelo de Rivano (1999)</strong> para:</p>
+                    <ul>
+                        <li>Transcripción de relatos</li>
+                        <li>Codificación de metáforas</li>
+                        <li>Categorización (estructurales, orientacionales, ontológicas)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Evaluación Psicoemocional</h3>
+                    <p><strong>Instrumentos validados:</strong></p>
+                    <ul>
+                        <li>TMMS-24 (Trait Meta-Mood Scale)</li>
+                        <li>DASS-21 (Depression Anxiety Stress Scales)</li>
+                    </ul>
+                    <p>Aplicación pre y post intervención</p>
+                </div>
+                <div class="card">
+                    <h3>Productos Finales</h3>
+                    <ul>
+                        <li>Pieza editorial bilingüe (español-criollo)</li>
+                        <li>3 cápsulas audiovisuales (4 min c/u)</li>
+                        <li>Artículo científico indexado</li>
+                        <li>Exposición de obras</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- OBJETIVOS -->
+        <div id="objetivos" class="tab-content">
+            <div class="highlight-card">
+                <h3>Objetivo General</h3>
+                <p>Crear una pieza editorial y un dispositivo audiovisual que represente las experiencias autobiográficas de personas haitianas en Chile.</p>
+            </div>
+            
+            <h3>Objetivos Específicos</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Objetivo</th>
+                        <th>Indicador</th>
+                        <th>Fórmula de cálculo</th>
+                        <th>Meta</th>
+                        <th>Medio de verificación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Expresar la experiencia migrante mediante 6 sesiones arteterapéuticas presenciales</td>
+                        <td>N° participantes que completan el ciclo</td>
+                        <td>20 personas × 6 sesiones = 120 registros</td>
+                        <td>20 personas</td>
+                        <td>Lista de asistencia y portafolio de obras</td>
+                    </tr>
+                    <tr>
+                        <td>Analizar metáforas cognitivas en relatos migratorios (modelo Rivano, 1999)</td>
+                        <td>N° metáforas identificadas/clasificadas</td>
+                        <td>20 personas × 10 metáforas = 200 clasificaciones</td>
+                        <td>200 metáforas</td>
+                        <td>Informe lingüístico-cognitivo</td>
+                    </tr>
+                    <tr>
+                        <td>Evaluar características psicométricas con TMMS-24 y DASS-21</td>
+                        <td>Puntajes pre/post intervención</td>
+                        <td>(2 cuestionarios × 2 aplicaciones) × 20 personas</td>
+                        <td>80 evaluaciones</td>
+                        <td>Base de datos anónima</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- PÚBLICO -->
+        <div id="publico" class="tab-content">
+            <h2>Público Objetivo y Contexto</h2>
+            
+            <div class="highlight-card">
+                <h3>Población Haitiana en Chile</h3>
+                <p>Según SERMIG (2024): ~184,000 personas, con 62.6% en Región Metropolitana.</p>
+                <p><strong>Perfil:</strong> 62.6% hombres, 85.8% entre 18-44 años.</p>
+                <p><strong>Comunas prioritarias:</strong> Santiago Centro, Independencia, Cerrillos, Estación Central.</p>
+            </div>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Criterios de Participación</h3>
+                    <ul>
+                        <li>20 adultos haitianos</li>
+                        <li>Criollo haitiano como L1</li>
+                        <li>Español como L2</li>
+                        <li>Residentes en RM</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Estrategia de Distribución</h3>
+                    <ul>
+                        <li>Redes sociales (Meta, Instagram, YouTube)</li>
+                        <li>Alianzas con SJM y organizaciones migrantes</li>
+                        <li>Actividades de mediación sociocultural</li>
+                        <li>Publicación científica indexada</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Impacto Esperado</h3>
+                    <ul>
+                        <li>20 participantes directos</li>
+                        <li>1,000 visualizaciones de productos</li>
+                        <li>1 artículo científico</li>
+                        <li>1 exposición comunitaria</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- EQUIPO -->
+        <div id="equipo" class="tab-content">
+            <h2>Equipo de Trabajo</h2>
+            
+            <div class="highlight-card">
+                <h3>Detalle del Equipo</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rol</th>
+                            <th>Nombre Completo</th>
+                            <th>Profesión</th>
+                            <th>Teléfono</th>
+                            <th>Correo Electrónico</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Director/a general</td>
+                            <td>Dr. Cristián Moreno</td>
+                            <td>Doctor en Neurociencias por la Universidad de Santiago de Chile, Magíster en Ciencias Biológicas por la Universidad de Chile y Kinesiólogo de la Pontificia Universidad Católica de Valparaíso.</td>
+                            <td>+56962267098</td>
+                            <td>morenonaranjocristian@gmail.com</td>
+                        </tr>
+                        <tr>
+                            <td>Encargado/a de contenidos</td>
+                            <td>Dra. Johana Garrido</td>
+                            <td>Doctora en Lingüística por la Pontificia Universidad Católica de Chile. Magíster en Trastornos de la Comunicación y del Lenguaje por la Universitat Autónoma de Barcelona, España y Fonoaudióloga de la Universidad de Valparaíso.</td>
+                            <td>+56997989440</td>
+                            <td>jkgarrido@uc.cl</td>
+                        </tr>
+                        <tr>
+                            <td>Encargado/a de diseño</td>
+                            <td>Javiera Perez</td>
+                            <td>Licenciada en Educación mención Arte y Diseño. Título de Pedagogía en Artes visuales y Diseño - Universidad Vicente Pérez Rosales, Chile. Postítulo en Arteterapia. Espacio Crea, Chile. Postítulo en Orientación Educativa. Universidad Andrés Bello.</td>
+                            <td>+56963499491</td>
+                            <td>eltriangulo.arteterapia@gmail.com</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="highlight-card" style="margin-top: 2rem;">
+                <h3>Instituciones Asociadas</h3>
+                <p>Universidad Católica Silva Henríquez</p>
+            </div>
+        </div>
+        
+        <!-- PLAN -->
+        <div id="plan" class="tab-content">
+            <h2>Plan de Trabajo</h2>
+            
+            <div class="highlight-card">
+                <h3>Actividades Obligatorias</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Actividad</th>
+                            <th>Inicio</th>
+                            <th>Término</th>
+                            <th>Público Estimado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Etapa de diseño</td>
+                            <td>01/12/2025</td>
+                            <td>02/01/2026</td>
+                            <td>No corresponde</td>
+                        </tr>
+                        <tr>
+                            <td>Testeo</td>
+                            <td>10/01/2026</td>
+                            <td>02/05/2026</td>
+                            <td>20 personas</td>
+                        </tr>
+                        <tr>
+                            <td>Informe de avance</td>
+                            <td>01/06/2026</td>
+                            <td>01/07/2026</td>
+                            <td>No corresponde</td>
+                        </tr>
+                        <tr>
+                            <td>Lanzamiento</td>
+                            <td>01/09/2026</td>
+                            <td>01/10/2026</td>
+                            <td>60 personas</td>
+                        </tr>
+                        <tr>
+                            <td>Distribución y Mediación</td>
+                            <td>01/09/2026</td>
+                            <td>01/10/2026</td>
+                            <td>No corresponde</td>
+                        </tr>
+                        <tr>
+                            <td>Actividad en centro cultural</td>
+                            <td>01/09/2026</td>
+                            <td>01/10/2026</td>
+                            <td>100 personas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="highlight-card">
+                <h3>Otras Actividades</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Actividad</th>
+                            <th>Inicio</th>
+                            <th>Término</th>
+                            <th>Público Estimado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Actividad de cierre con comunidades</td>
+                            <td>06/10/2026</td>
+                            <td>06/10/2026</td>
+                            <td>40 personas</td>
+                        </tr>
+                        <tr>
+                            <td>Presentación del equipo y valores</td>
+                            <td>10/01/2026</td>
+                            <td>10/01/2026</td>
+                            <td>20 personas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- PRESUPUESTO -->
+            <div class="highlight-card">
+                <h3>Presupuesto Detallado</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Categoría</th>
+                            <th>Monto (CLP)</th>
+                            <th>Detalle</th>
+                            <th>Justificación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Personal</strong></td>
+                            <td>10.000.000</td>
+                            <td>
+                                <ul>
+                                    <li>Arteterapeuta (4.000.000)</li>
+                                    <li>Lingüista (4.000.000)</li>
+                                    <li>Traductor lengua de señas (1.000.000)</li>
+                                    <li>Traductor español-criollo (1.000.000)</li>
+                                </ul>
+                            </td>
+                            <td>Honorarios del equipo de trabajo. Se trabajará con 4 grupos de 5 personas a los que se le realizarán 6 talleres artísticos. El total de sesiones artísticas será de 24, cada una correspondiente a 1 hora y 30 minutos (valor clase 166.000 bruto, valor no incluye descuentos impositivos)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Operaciones</strong></td>
+                            <td>8.000.000</td>
+                            <td>
+                                <ul>
+                                    <li>Grabación, edición, subtitulado</li>
+                                    <li>Materiales y logística</li>
+                                </ul>
+                            </td>
+                            <td>Se consideran los gastos necesarios para el funcionamiento del proyecto como: materiales, insumos, arriendos, transporte, comunicaciones, entre otros</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Inversión</strong></td>
+                            <td>7.000.000</td>
+                            <td>
+                                <ul>
+                                    <li>Insumos artísticos (pinturas, acuarelas, papeles, pinceles, lápices, soportes)</li>
+                                    <li>Grabadoras y cámara fotográfica</li>
+                                </ul>
+                            </td>
+                            <td>Considera la adquisición de bienes durables o equipos necesarios para el proyecto, como software, hardware, herramientas, etc.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TOTAL</strong></td>
+                            <td><strong>25.000.000</strong></td>
+                            <td colspan="2">Se considera la suma de todos los ítems para la correcta ejecución del proyecto.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MODALES -->
+    <div id="modal-resumen" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal-resumen')">&times;</span>
+            <h2>Fundamentación Académica</h2>
+            <p>El proyecto se basa en:</p>
+            <ul>
+                <li><strong>Teoría de metáforas conceptuales</strong> (Lakoff & Johnson, 1980; Rivano, 1999)</li>
+                <li><strong>Estudios migratorios</strong> (Bauman, 1999; De Fina, 2016)</li>
+                <li><strong>Regulación emocional</strong> en contextos migratorios (Fernández-Berrocal et al., 2004)</li>
+                <li><strong>Expresión artística</strong> como catalizador de memoria y agencia (Hall, 1997)</li>
+            </ul>
+            <p>Área prioritaria: <strong>Ciencias Sociales, Convivencia, Sostenibilidad Social</strong></p>
+        </div>
+    </div>
+    
+    <div id="modal-talleres" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal-talleres')">&times;</span>
+            <h2>Detalle de Sesiones Arteterapéuticas</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Sesión 1: Vinculación y encuadre terapéutico</h3>
+                        <p><strong>Pregunta guía:</strong> ¿Cómo me sentiré en este espacio al hablar de mis emociones y experiencias migratorias?</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Sesión 2: El collage, la palabra en escenarios emocionales</h3>
+                        <p><strong>Pregunta orientadora:</strong> ¿Qué palabras elegiré para realizar mi obra desde el collage?</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Sesión 3: El retrato como identidad (planificación)</h3>
+                        <p><strong>Pregunta guía:</strong> ¿Cuál será la emoción que caracterizará mi autorretrato?</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Sesión 4: El retrato como identidad (realización)</h3>
+                        <p>Se ejecutará la obra de autorretrato planificada en la sesión anterior. A través de esta actividad, cada persona plasmará visualmente su percepción de identidad y su vivencia emocional vinculada a la migración.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Sesiones 5 y 6: Obra colectiva - "Pasos migratorios, un camino a través de emociones y expresiones"</h3>
+                        <p><strong>Pregunta guía:</strong> ¿Qué nos caracterizará y unificará para crear una obra colectiva?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function openTab(tabId) {
+            // Oculta todos los contenidos de pestañas
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            // Desactiva todas las pestañas
+            const tabs = document.getElementsByClassName('tab');
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            
+            // Activa la pestaña seleccionada
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+        
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Cierra el modal al hacer clic fuera del contenido
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target == modals[i]) {
+                    modals[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
